@@ -1,3 +1,6 @@
+//post
+let posts = [];
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
@@ -18,6 +21,7 @@ app.use(express.static('public'));
 app.get('/', function (req, res) {
     res.render('home', {
         homeStartingContent: homeStartingContent,
+        posts: posts,
     });
 });
 
@@ -42,9 +46,10 @@ app.post('/compose', function (req, res) {
         title: req.body.postTitle,
         content: req.body.postBody,
     };
-    console.log(post);
+    posts.push(post);
+    res.redirect('/');
 });
 
 app.listen(3000, function () {
-    console.log('Server started on port 3000');
+    console.log('Server started on port 3000 ');
 });
